@@ -1,38 +1,70 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
 
 
-library(revtools)
+library(devtools)
+install_github("mjwestgate/revtools")
+install.packages("revtools")
+install.packages("dplyr")
 library(dplyr)
 library(operators)
+library(revtools)
+
+install.packages("xtable")
+library(xtable)
+install.packages("slam")
+library(slam)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+install.packages("revtools")
+library(dplyr)
+
+
+
+
 
 
 #Databases: Web of Science Core Collection (http://www.webofknowledge.com); Scopus (https://www.scopus.com/)
 
 
-#Wos Search ----
+#Wos Search 18072019----
 #TS= ("*mutualis*" OR "cooperati*" OR "interdependenc*" OR "symbio*") AND TS=("antagonis*" OR "competi*" OR ("host*" AND "parasit*") OR ("predator*" AND "prey") OR "conflict") AND TS=(("intraspecific" OR "within-species" OR "individual*" OR "agent*" OR "organism*" OR "animal*") NEAR/5 ("varia*" OR "divers*" OR "difference*"))
 #Refined by: WEB OF SCIENCE CATEGORIES: ( ECOLOGY OR EVOLUTIONARY BIOLOGY OR ZOOLOGY OR BEHAVIORAL SCIENCES OR BIOLOGY )
 #Timespan: All years. Indexes: SCI-EXPANDED, SSCI, A&HCI, ESCI.
 
 WoS <- read_bibliography("wos.bib")
 WoS.df <- as.data.frame(WoS)
-reducing.fields <- c("label","title","author","journal","issn", "volume","number","pages","year","doi","abstract")
+reducing.fields <- c("label","title","author","journal", "volume","number","pages","year","doi","abstract")
 WoS.df.reduced <- WoS.df[,reducing.fields]
 summary(WoS.df.reduced)
 
 #265 Results
 
 
-#Scopus Search ----
+#Scopus Search 18072019----
 #( TITLE-ABS-KEY ("*mutualis*" OR "cooperati*" OR "interdependenc*" OR "symbio*") AND 
 #  TITLE-ABS-KEY ("antagonis*" OR "competi*" OR ("host*" AND "parasit*") OR ("predator*" AND "prey") OR "conflict") AND 
 #  TITLE-ABS-KEY (("intraspecific" OR "within-species" OR "individual*" OR "agent*" OR "organism*" OR "animal*") W/5 ("varia*" OR "divers*" OR "difference*"))
+#Refined to Scopus Subject Area "Agricultural and Biological Sciences".
+
 Scopus <- read_bibliography("scopus.bib")
 Scopus.df <- as.data.frame(Scopus)
 Scopus.df.reduced <- Scopus.df[,reducing.fields]
 summary(Scopus.df.reduced)
+write.csv(Scopus.df.reduced,"Scopus.df.reduced.csv", row.names=FALSE)
 
-#... Results
+#290 Results
 
 
 #Deduplication + Export ----
