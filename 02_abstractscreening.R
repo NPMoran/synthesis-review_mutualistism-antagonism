@@ -87,9 +87,14 @@ MA.fullrec.screendatA.pt2.reduced$screener.id <- "UE"
 MA.fullrec.screendatA.pt3.reduced$screener.id <- "JW"
 #Meike Wittmann (MW), MA.fullrec.screendatA.pt4.reduced
 MA.fullrec.screendatA.pt4.reduced$screener.id <- "MW"
-#Pete Trimmer (PT), 
-MA.fullrec.screendatA.pt5.reduced$screener.id <- "PT"
-#Nicholas Moran (NM)
+#Claudia Fricke (CF), MA.fullrec.screendatA.pt5.reduced
+MA.fullrec.screendatA.pt5.reduced$screener.id <- "CF"
+#Pete Trimmer (PT), MA.fullrec.screendatB.pt1.reduced
+MA.fullrec.screendatB.pt1.reduced$screener.id <- "PT"
+#Caroline Muller (CM), MA.fullrec.screendatB.pt2.reduced
+MA.fullrec.screendatB.pt2.reduced$screener.id <- "CM"
+#Nicholas Moran (NM), MA.fullrec.screendatB.pt5.reduced
+MA.fullrec.screendatB.pt3.reduced$screener.id <- "NM"
 
 
 write.csv(MA.fullrec.screendatA.pt1.reduced, "./MA_screening_files/MA.fullrec.screendatA.pt1.csv", row.names=FALSE)
