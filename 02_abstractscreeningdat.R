@@ -45,25 +45,18 @@ nrow(MA.fullrec.screendatA)
 
 MA.fullrec.screendatA.pt5 <- MA.fullrec.screendatA
 
-#to split MA.fullrec.screendatB into 5 sections (4x 82, 1 x 83) 
+#to split MA.fullrec.screendatB into 3 sections (2x 103, 1 x 205) 
 set.seed(23)
-MA.fullrec.screendatB.pt1 <- sample_n(MA.fullrec.screendatB, 82, replace = FALSE, weight = NULL)
+MA.fullrec.screendatB.pt1 <- sample_n(MA.fullrec.screendatB, 103, replace = FALSE, weight = NULL)
 MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt1$abstract.id)
 nrow(MA.fullrec.screendatB)
 
-MA.fullrec.screendatB.pt2 <- sample_n(MA.fullrec.screendatB, 82, replace = FALSE, weight = NULL)
+MA.fullrec.screendatB.pt2 <- sample_n(MA.fullrec.screendatB, 103, replace = FALSE, weight = NULL)
 MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt2$abstract.id)
 nrow(MA.fullrec.screendatB)
 
-MA.fullrec.screendatB.pt3 <- sample_n(MA.fullrec.screendatB, 82, replace = FALSE, weight = NULL)
-MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt3$abstract.id)
-nrow(MA.fullrec.screendatB)
+MA.fullrec.screendatB.pt3 <- MA.fullrec.screendatB
 
-MA.fullrec.screendatB.pt4 <- sample_n(MA.fullrec.screendatB, 82, replace = FALSE, weight = NULL)
-MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt4$abstract.id)
-nrow(MA.fullrec.screendatB)
-
-MA.fullrec.screendatB.pt5 <- MA.fullrec.screendatB
 
 #removing all identifying information excluding the tital and abstract
 labels(MA.fullrec.screendatA.pt1)
@@ -85,16 +78,17 @@ MA.fullrec.screendatA.pt1.reduced$screener.id <- "KJB"
 MA.fullrec.screendatA.pt2.reduced$screener.id <- "UE"
 #Jamie Winternitz (JW), MA.fullrec.screendatA.pt3.reduced
 MA.fullrec.screendatA.pt3.reduced$screener.id <- "JW"
-#Meike Wittmann (MW), MA.fullrec.screendatA.pt4.reduced
-MA.fullrec.screendatA.pt4.reduced$screener.id <- "MW"
+#Caroline Muller (CM), MA.fullrec.screendatA.pt4.reduced
+MA.fullrec.screendatA.pt4.reduced$screener.id <- "CM"
 #Claudia Fricke (CF), MA.fullrec.screendatA.pt5.reduced
 MA.fullrec.screendatA.pt5.reduced$screener.id <- "CF"
 #Pete Trimmer (PT), MA.fullrec.screendatB.pt1.reduced
 MA.fullrec.screendatB.pt1.reduced$screener.id <- "PT"
-#Caroline Muller (CM), MA.fullrec.screendatB.pt2.reduced
-MA.fullrec.screendatB.pt2.reduced$screener.id <- "CM"
+#Meike Wittmann (MW), MA.fullrec.screendatA.pt4.reduced
+MA.fullrec.screendatB.pt2.reduced$screener.id <- "MW"
 #Nicholas Moran (NM), MA.fullrec.screendatB.pt5.reduced
 MA.fullrec.screendatB.pt3.reduced$screener.id <- "NM"
+
 
 
 write.csv(MA.fullrec.screendatA.pt1.reduced, "./MA_screening_files/MA.fullrec.screendatA.pt1.csv", row.names=FALSE)
@@ -102,9 +96,9 @@ write.csv(MA.fullrec.screendatA.pt2.reduced, "./MA_screening_files/MA.fullrec.sc
 write.csv(MA.fullrec.screendatA.pt3.reduced, "./MA_screening_files/MA.fullrec.screendatA.pt3.csv", row.names=FALSE)
 write.csv(MA.fullrec.screendatA.pt4.reduced, "./MA_screening_files/MA.fullrec.screendatA.pt4.csv", row.names=FALSE)
 write.csv(MA.fullrec.screendatA.pt5.reduced, "./MA_screening_files/MA.fullrec.screendatA.pt5.csv", row.names=FALSE)
-#write.csv(MA.fullrec.screendatB.pt1.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt1.csv", row.names=FALSE)
-#write.csv(MA.fullrec.screendatB.pt2.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt2.csv", row.names=FALSE)
-#write.csv(MA.fullrec.screendatB.pt3.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt3.csv", row.names=FALSE)
+write.csv(MA.fullrec.screendatB.pt1.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt1.csv", row.names=FALSE)
+write.csv(MA.fullrec.screendatB.pt2.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt2.csv", row.names=FALSE)
+write.csv(MA.fullrec.screendatB.pt3.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt3.csv", row.names=FALSE)
 #write.csv(MA.fullrec.screendatB.pt4.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt4.csv", row.names=FALSE)
 #write.csv(MA.fullrec.screendatB.pt5.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt5.csv", row.names=FALSE)
 
