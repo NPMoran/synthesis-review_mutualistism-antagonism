@@ -45,13 +45,13 @@ nrow(MA.fullrec.screendatA)
 
 MA.fullrec.screendatA.pt5 <- MA.fullrec.screendatA
 
-#to split MA.fullrec.screendatB into 3 sections (2x 103, 1 x 205) 
+#to split MA.fullrec.screendatB into 3 sections (3x 137) 
 set.seed(23)
-MA.fullrec.screendatB.pt1 <- sample_n(MA.fullrec.screendatB, 103, replace = FALSE, weight = NULL)
+MA.fullrec.screendatB.pt1 <- sample_n(MA.fullrec.screendatB, 137, replace = FALSE, weight = NULL)
 MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt1$abstract.id)
 nrow(MA.fullrec.screendatB)
 
-MA.fullrec.screendatB.pt2 <- sample_n(MA.fullrec.screendatB, 103, replace = FALSE, weight = NULL)
+MA.fullrec.screendatB.pt2 <- sample_n(MA.fullrec.screendatB, 137, replace = FALSE, weight = NULL)
 MA.fullrec.screendatB <- subset(MA.fullrec.screendatB, abstract.id %!in% MA.fullrec.screendatB.pt2$abstract.id)
 nrow(MA.fullrec.screendatB)
 
@@ -68,8 +68,6 @@ MA.fullrec.screendatA.pt5.reduced <- select(MA.fullrec.screendatA.pt5, -c(label,
 MA.fullrec.screendatB.pt1.reduced <- select(MA.fullrec.screendatB.pt1, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
 MA.fullrec.screendatB.pt2.reduced <- select(MA.fullrec.screendatB.pt2, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
 MA.fullrec.screendatB.pt3.reduced <- select(MA.fullrec.screendatB.pt3, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
-MA.fullrec.screendatB.pt4.reduced <- select(MA.fullrec.screendatB.pt4, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
-MA.fullrec.screendatB.pt5.reduced <- select(MA.fullrec.screendatB.pt5, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
 
 #allocation of screeners
 #Koen Johannes Benthem (KJB), MA.fullrec.screendatA.pt1.reduced
@@ -99,6 +97,4 @@ write.csv(MA.fullrec.screendatA.pt5.reduced, "./MA_screening_files/MA.fullrec.sc
 write.csv(MA.fullrec.screendatB.pt1.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt1.csv", row.names=FALSE)
 write.csv(MA.fullrec.screendatB.pt2.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt2.csv", row.names=FALSE)
 write.csv(MA.fullrec.screendatB.pt3.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt3.csv", row.names=FALSE)
-#write.csv(MA.fullrec.screendatB.pt4.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt4.csv", row.names=FALSE)
-#write.csv(MA.fullrec.screendatB.pt5.reduced, "./MA_screening_files/MA.fullrec.screendatB.pt5.csv", row.names=FALSE)
 
