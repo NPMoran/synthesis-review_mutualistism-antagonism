@@ -33,8 +33,8 @@ summary(subset(MA.fullrec.screendatA.pt4.done, decision == "include"))
 #PT
 MA.fullrec.screendatB.pt1.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatB.pt1.done.csv", strip.white = TRUE)
 summary(MA.fullrec.screendatB.pt1.done)
-nrow(subset(MA.fullrec.screendatB.pt1.done, decision == "In")) #74/137 studies included, 54.0146% inclusion rate
-summary(subset(MA.fullrec.screendatB.pt1.done, decision == "In"))
+nrow(subset(MA.fullrec.screendatB.pt1.done, decision == "include")) #74/137 studies included, 54.0146% inclusion rate
+summary(subset(MA.fullrec.screendatB.pt1.done, decision == "include"))
 
 #MW
 MA.fullrec.screendatB.pt2.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatB.pt2.done.csv", strip.white = TRUE)
@@ -43,3 +43,18 @@ nrow(subset(MA.fullrec.screendatB.pt2.done, decision == "include")) #42/137 stud
 summary(subset(MA.fullrec.screendatB.pt2.done, decision == "include"))
 
 #NM
+MA.fullrec.screendatB.pt3.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatB.pt3.done.csv", strip.white = TRUE)
+summary(MA.fullrec.screendatB.pt3.done)
+nrow(subset(MA.fullrec.screendatB.pt3.done, decision == "include")) #78/137 studies included, 56.93431% inclusion rate
+summary(subset(MA.fullrec.screendatB.pt3.done, decision == "include"))
+
+
+#Conflict analysis
+
+screendatB.done <- rbind(MA.fullrec.screendatB.pt1.done,MA.fullrec.screendatB.pt2.done,MA.fullrec.screendatB.pt3.done)
+
+MA.fullrec.screendatB.pt2.done$notes <- ""
+MA.fullrec.screendatB.pt3.done$notes <- ""
+
+screendatB.done <- rbind(MA.fullrec.screendatB.pt1.done,MA.fullrec.screendatB.pt2.done,MA.fullrec.screendatB.pt3.done)
+summary(screendatB.done) #Screeners B found 194 potentially relevant studies
