@@ -55,33 +55,38 @@ nrow(subset(MA.fullrec.screendatB.pt3.done, decision == "include")) #78/137 stud
 summary(subset(MA.fullrec.screendatB.pt3.done, decision == "include"))
 
 
-#A Screeners
+#Conflict Identification
 MA.fullrec.screendatA.pt2.done$notes <- ""
 MA.fullrec.screendatA.pt3.done$notes <- ""
 MA.fullrec.screendatA.pt5.done$notes <- ""
-
-
 screendatA.done <- rbind(MA.fullrec.screendatA.pt1.done,MA.fullrec.screendatA.pt2.done,MA.fullrec.screendatA.pt3.done,MA.fullrec.screendatA.pt4.done,MA.fullrec.screendatA.pt5.done)
-screendatA.done <- rename(screendatA.done, decisionA = decision)
-screendatA.done <- rename(screendatA.done, screener.A = screener.id)
-screendatA.done <- rename(screendatA.done, scaleA = scale)
-screendatA.done <- rename(screendatA.done, topicA = topic)
-screendatA.done <- rename(screendatA.done, notesA = notes)
 labels(screendatA.done)
 
-#B Screeners
 MA.fullrec.screendatB.pt2.done$notes <- ""
 MA.fullrec.screendatB.pt3.done$notes <- ""
-
 screendatB.done <- rbind(MA.fullrec.screendatB.pt1.done,MA.fullrec.screendatB.pt2.done,MA.fullrec.screendatB.pt3.done)
-screendatB.done <- rename(screendatB.done, decisionB = decision)
-screendatB.done <- rename(screendatB.done, screener.B = screener.id)
-screendatB.done <- rename(screendatB.done, scaleB = scale)
-screendatB.done <- rename(screendatB.done, topicB = topic)
-screendatB.done <- rename(screendatB.done, notesB = notes)
 labels(screendatB.done)
 
-screendatA.done.reduced <- select(screendatA.done, "abstract.id", "screener.A", "decisionA", "scaleA", "topicA", "notesA")
+conflict.identification <- merge(screendatA.done, screendatB.done, by = "abstract.id", all.x = TRUE)
+labels(conflict.identification)
+summary(conflict.identification)
 
-conflict.identification <- merge(screendatA.done.reduced, screendatB.done, by = "abstract.id", all.x = TRUE)
-write.csv(conflict.identification, "conflicts.csv")
+#Excluded records
+excluded.B <- subset(conflict.identification, decision.y == "exclude")
+excluded.both <- subset(excluded.B, decision.x == "exclude")
+nrow(excluded.both) #82 records excluded so far
+
+#Included records
+included.B <- subset(conflict.identification, decision.y == "include")
+included.both <- subset(included.B, decision.x == "include")
+nrow(included.both) #79 records excluded so far
+
+#Conflicting decisions
+conflict.1 <- subset(excluded.B, decision.x != "exclude")
+conflict.2 <- subset(included.B, decision.x != "include")
+
+conflicts <- rbind(conflict.1, conflict.2)
+nrow(conflicts) #85 conflicts
+
+write.csv(conflicts, "conflicts.csv")
+
