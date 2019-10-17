@@ -31,9 +31,9 @@ nrow(subset(MA.fullrec.screendatA.pt4.done, decision == "include")) #39/82 inclu
 summary(subset(MA.fullrec.screendatA.pt4.done, decision == "include"))
 
 #CF
-MA.fullrec.screendatA.pt5.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatA.pt5.done.csv", strip.white = TRUE)
+MA.fullrec.screendatA.pt5.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatA.pt5.done.csv", sep = ";", strip.white = TRUE)
 summary(MA.fullrec.screendatA.pt5.done)
-nrow(subset(MA.fullrec.screendatA.pt5.done, decision == "include")) #TO BE COMPLETED
+nrow(subset(MA.fullrec.screendatA.pt5.done, decision == "include")) #40/83 included, 48.19277% inclusion rate
 summary(subset(MA.fullrec.screendatA.pt5.done, decision == "include"))
 
 #PT
@@ -74,19 +74,19 @@ summary(conflict.identification)
 #Excluded records
 excluded.B <- subset(conflict.identification, decision.y == "exclude")
 excluded.both <- subset(excluded.B, decision.x == "exclude")
-nrow(excluded.both) #82 records excluded so far
+nrow(excluded.both) #110 records excluded so far
 
 #Included records
 included.B <- subset(conflict.identification, decision.y == "include")
 included.both <- subset(included.B, decision.x == "include")
-nrow(included.both) #79 records excluded so far
+nrow(included.both) #108 records excluded so far
 
 #Conflicting decisions
 conflict.1 <- subset(excluded.B, decision.x != "exclude")
 conflict.2 <- subset(included.B, decision.x != "include")
 
 conflicts <- rbind(conflict.1, conflict.2)
-nrow(conflicts) #85 conflicts
+nrow(conflicts) #111 conflicts
 
-write.csv(conflicts, "conflicts.csv")
+write.csv(conflicts, "MA.conflicts.csv")
 
