@@ -14,8 +14,17 @@ summary(subset(MA.fullrec.screendatA.pt1.done, decision == "include"))
 
 #UE
 MA.fullrec.screendatA.pt2.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatA.pt2.done.csv", strip.white = TRUE)
-summary(MA.fullrec.screendatA.pt2.done)
-nrow(subset(MA.fullrec.screendatA.pt2.done, decision == "include")) #TO BE COMPLETED
+summary(MA.fullrec.screendatA.pt2.done) #
+MA.fullrec.screendatA.pt2.done <- transform(MA.fullrec.screendatA.pt2.done, topic=paste(topic.area..e.g..predator.prey..parasite.host..male.female..theoretical.modelling..review., observation.experiment..modelling..theory..review)) #screener created an additional topic area variable, so combining these to create a new topic variable
+MA.fullrec.screendatA.pt2.done <- select(MA.fullrec.screendatA.pt2.done, -c(topic.area..e.g..predator.prey..parasite.host..male.female..theoretical.modelling..review., observation.experiment..modelling..theory..review)) #cleaning up old variables
+MA.fullrec.screendatA.pt2.done.no <- subset(MA.fullrec.screendatA.pt2.done, decision == "no"); MA.fullrec.screendatA.pt2.done.no$decision <- "exclude" #screener input 4 levels of decisions, agreed to classify maybe and yes as include, no and rather nots as exclude
+MA.fullrec.screendatA.pt2.done.rathernot <- subset(MA.fullrec.screendatA.pt2.done, decision == "rather not"); MA.fullrec.screendatA.pt2.done.rathernot$decision <- "exclude"
+MA.fullrec.screendatA.pt2.done.maybe <- subset(MA.fullrec.screendatA.pt2.done, decision == "maybe"); MA.fullrec.screendatA.pt2.done.maybe$decision <- "include"
+MA.fullrec.screendatA.pt2.done.yes <- subset(MA.fullrec.screendatA.pt2.done, decision == "yes"); MA.fullrec.screendatA.pt2.done.yes$decision <- "include"
+MA.fullrec.screendatA.pt2.done <- rbind(MA.fullrec.screendatA.pt2.done.no, MA.fullrec.screendatA.pt2.done.rathernot,MA.fullrec.screendatA.pt2.done.maybe, MA.fullrec.screendatA.pt2.done.yes)
+MA.fullrec.screendatA.pt2.done.include <- subset(MA.fullrec.screendatA.pt2.done, decision == c("no", "rather"))
+nrow(MA.fullrec.screendatA.pt2.done)
+nrow(subset(MA.fullrec.screendatA.pt2.done, decision == "include")) #29/82 included, 35.36585% inclusion rate
 summary(subset(MA.fullrec.screendatA.pt2.done, decision == "include"))
 
 #JW
@@ -74,19 +83,18 @@ summary(conflict.identification)
 #Excluded records
 excluded.B <- subset(conflict.identification, decision.y == "exclude")
 excluded.both <- subset(excluded.B, decision.x == "exclude")
-nrow(excluded.both) #110 records excluded so far
+nrow(excluded.both) #143 records excluded so far
 
 #Included records
 included.B <- subset(conflict.identification, decision.y == "include")
 included.both <- subset(included.B, decision.x == "include")
-nrow(included.both) #108 records excluded so far
+nrow(included.both) #128 records included so far
 
 #Conflicting decisions
 conflict.1 <- subset(excluded.B, decision.x != "exclude")
 conflict.2 <- subset(included.B, decision.x != "include")
 
 conflicts <- rbind(conflict.1, conflict.2)
-nrow(conflicts) #111 conflicts
+nrow(conflicts) #140 conflicts
 
 write.csv(conflicts, "MA.conflicts.csv")
-

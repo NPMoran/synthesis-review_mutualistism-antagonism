@@ -20,6 +20,7 @@ MA.fullrec.final$screener.id <- ""
 MA.fullrec.final$"include or exclude (note: exclude only if the abstract is unrelated to our topic, if you are unsure mark as include)" <- ""
 MA.fullrec.final$"ecological scale (e.g. interspecific or intraspecific)" <- ""
 MA.fullrec.final$"topic area (e.g. predator-prey, parasite-host, male-female, theoretical/modelling, review)" <- ""
+write.csv(MA.fullrec.final, "MA.fullrec.final.csv")
 
 #for full double screening, the final deduplicated database is randomly split into 5 random sections twice for 10 total screeners
 MA.fullrec.screendatA <- MA.fullrec.final 
