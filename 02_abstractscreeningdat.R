@@ -1,11 +1,10 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
 
 
-library(dplyr)
-library(operators)
+library(dplyr); library(operators)
 
 
-#Production of files for individual screeners:
+#Production of files for individual screeners ----
 
 #importing full database
 MA.fullrec.final <- read.csv("MA.fullrec.deduplicated.manual.csv", strip.white = TRUE)
@@ -70,7 +69,7 @@ MA.fullrec.screendatB.pt1.reduced <- select(MA.fullrec.screendatB.pt1, -c(label,
 MA.fullrec.screendatB.pt2.reduced <- select(MA.fullrec.screendatB.pt2, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
 MA.fullrec.screendatB.pt3.reduced <- select(MA.fullrec.screendatB.pt3, -c(label, author, journal, volume, number, pages, year, doi, n_duplicates))
 
-#allocation of screeners
+#Allocation of screeners ----
 #Koen Johannes Benthem (KJB), MA.fullrec.screendatA.pt1.reduced
 MA.fullrec.screendatA.pt1.reduced$screener.id <- "KJB"
 #Uli Ernst (UE), MA.fullrec.screendatA.pt2.reduced

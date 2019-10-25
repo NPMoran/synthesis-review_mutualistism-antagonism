@@ -1,11 +1,10 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
 
 
-library(dplyr)
-library(operators)
+library(dplyr); library(operators)
 
 
-#Analysis of screeners returned databases:
+#Analysis of screeners returned databases ----
 #KJM
 MA.fullrec.screendatA.pt1.done <- read.csv("./MA_screening_returns/MA.fullrec.screendatA.pt1.done.csv", strip.white = TRUE)
 summary(MA.fullrec.screendatA.pt1.done)
@@ -64,7 +63,7 @@ nrow(subset(MA.fullrec.screendatB.pt3.done, decision == "include")) #78/137 stud
 summary(subset(MA.fullrec.screendatB.pt3.done, decision == "include"))
 
 
-#Conflict Identification
+#Conflict Identification ----
 MA.fullrec.screendatA.pt2.done$notes <- ""
 MA.fullrec.screendatA.pt3.done$notes <- ""
 MA.fullrec.screendatA.pt5.done$notes <- ""

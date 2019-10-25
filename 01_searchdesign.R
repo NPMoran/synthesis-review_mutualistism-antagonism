@@ -6,9 +6,7 @@
 #install.packages("revtools")
 #library(xtable)
 #library(slam)
-library(dplyr)
-library(operators)
-library(revtools)
+library(dplyr); library(operators); library(revtools)
 
 
 #Databases: Web of Science Core Collection (http://www.webofknowledge.com); Scopus (https://www.scopus.com/)

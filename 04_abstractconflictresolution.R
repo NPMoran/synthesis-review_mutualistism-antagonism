@@ -1,11 +1,10 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
 
 
-library(dplyr)
-library(operators)
+library(dplyr); library(operators)
 
 
-#Conflict resolutions:
+#Conflict resolution allocations ----
 conflicts <- read.csv("MA.conflicts.csv", strip.white = TRUE)
 
 #Due to the high amount of conflicts, these were randomly allocated conflicts to a third reviewer to make a final decision
@@ -18,7 +17,8 @@ labels(conflicts.reduced)
 summary(conflicts.reduced$screener.id.x); summary(conflicts.reduced$screener.id.y)
 #Screeners involved in most conflicts: PT(48) NM(47) MW(45) JW(42) UE(29) CF(26) KJB(22) CM(21)
 
-set.seed(8688)
+set.seed(8688) #set.seed was set as a value that allocated all abstracts to screeners that had not previously screened that abstract
+
 #Conflict resolution allocation for PT
 conflicts.allocation.noPT <- subset(conflicts.allocation, screener.id.y != "PT")
 conflicts.allocation.wiPT <- subset(conflicts.allocation, screener.id.y == "PT")
@@ -89,7 +89,8 @@ check <- rbind(MA.fullrec.conflictres.PT, MA.fullrec.conflictres.NM, MA.fullrec.
 setdiff(check, conflicts.reduced)
 intersect(check, conflicts.reduced) #all abstracts allocated, no duplicates 
 
-#Formatting datasets for third screener
+
+#Formatting datasets for third screener ----
 labels(MA.fullrec.conflictres.PT)
 MA.fullrec.conflictres.PT <- select(MA.fullrec.conflictres.PT, -c(screener.id.x, screener.id.y))
 MA.fullrec.conflictres.NM <- select(MA.fullrec.conflictres.NM, -c(screener.id.x, screener.id.y))
@@ -140,4 +141,3 @@ write.csv(MA.fullrec.conflictres.UE, "./MA_screening_files/MA.fullrec.conflictre
 write.csv(MA.fullrec.conflictres.CF, "./MA_screening_files/MA.fullrec.conflictres.CF.csv", row.names=FALSE)
 write.csv(MA.fullrec.conflictres.KJB, "./MA_screening_files/MA.fullrec.conflictres.KJB.csv", row.names=FALSE)
 write.csv(MA.fullrec.conflictres.CM, "./MA_screening_files/MA.fullrec.conflictres.CM.csv", row.names=FALSE)
-
