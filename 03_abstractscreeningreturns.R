@@ -97,3 +97,4 @@ conflicts <- rbind(conflict.1, conflict.2)
 nrow(conflicts) #140 conflicts
 
 write.csv(conflicts, "MA.conflicts.csv")
+write.csv(conflict.identification, "MA.abstractdecision_first.csv")
