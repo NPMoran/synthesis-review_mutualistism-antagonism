@@ -1,43 +1,33 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+
+
 Sys.setenv(LANG = "en")
 library(ggplot2); library(tidyverse)
 
+
 #Word cloud_abstract titles ----
-install.packages("tm")  # for text mining
-install.packages("SnowballC") # for text stemming
-install.packages("wordcloud") # word-cloud generator 
-install.packages("RColorBrewer") # color palettes
-# Load
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
+#Code based on: http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
+library("tm")# for text mining
+library("SnowballC")# for text stemming
+library("wordcloud")# word-cloud generator 
+library("RColorBrewer")# color palettes
 
 #Importing and formatting the files
 text <- readLines("MA-includedtitles.txt")
 docs <- Corpus(VectorSource(text))
 inspect(docs)
 
-
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "/")
 docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace, "\\|")
-# Convert the text to lower case
-docs <- tm_map(docs, content_transformer(tolower))
-# Remove numbers
-docs <- tm_map(docs, removeNumbers)
-# Remove english common stopwords
-docs <- tm_map(docs, removeWords, stopwords("english"))
-# Remove your own stop word
-# specify your stopwords as a character vector
-docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) 
-# Remove punctuations
-docs <- tm_map(docs, removePunctuation)
-# Eliminate extra white spaces
-docs <- tm_map(docs, stripWhitespace)
-# Text stemming #Only use if you want to reduce words to their root
-# docs <- tm_map(docs, stemDocument) 
+docs <- tm_map(docs, toSpace, "\\|") 
+docs <- tm_map(docs, content_transformer(tolower)) #to convert the text to lower case
+docs <- tm_map(docs, removeNumbers) #to remove numbers
+docs <- tm_map(docs, removeWords, stopwords("english"))# to remove english common stopwords
+#docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) # To remove your own words, specify your stopwords as a character vector
+docs <- tm_map(docs, removePunctuation) #to remove punctuations
+docs <- tm_map(docs, stripWhitespace) #to remove extra white spaces
+# docs <- tm_map(docs, stemDocument) # Text stemming #Only use if you want to reduce words to their root
 
 #finding frequency of words (within each title)
 dtm <- TermDocumentMatrix(docs)
@@ -64,26 +54,17 @@ text <- readLines("MA-includedabstracts.txt")
 docs <- Corpus(VectorSource(text))
 inspect(docs)
 
-
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "/")
 docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace, "\\|")
-# Convert the text to lower case
-docs <- tm_map(docs, content_transformer(tolower))
-# Remove numbers
-docs <- tm_map(docs, removeNumbers)
-# Remove english common stopwords
-docs <- tm_map(docs, removeWords, stopwords("english"))
-# Remove your own stop word
-# specify your stopwords as a character vector
-docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) 
-# Remove punctuations
-docs <- tm_map(docs, removePunctuation)
-# Eliminate extra white spaces
-docs <- tm_map(docs, stripWhitespace)
-# Text stemming #Only use if you want to reduce words to their root
-# docs <- tm_map(docs, stemDocument) 
+docs <- tm_map(docs, toSpace, "\\|") 
+docs <- tm_map(docs, content_transformer(tolower)) #to convert the text to lower case
+docs <- tm_map(docs, removeNumbers) #to remove numbers
+docs <- tm_map(docs, removeWords, stopwords("english"))# to remove english common stopwords
+#docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) # To remove your own words, specify your stopwords as a character vector
+docs <- tm_map(docs, removePunctuation) #to remove punctuations
+docs <- tm_map(docs, stripWhitespace) #to remove extra white spaces
+# docs <- tm_map(docs, stemDocument) # Text stemming #Only use if you want to reduce words to their root
 
 #finding frequency of words 
 dtm <- TermDocumentMatrix(docs)
