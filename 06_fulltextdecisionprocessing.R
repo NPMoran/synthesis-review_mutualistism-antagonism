@@ -6,7 +6,7 @@ library(dplyr); library(operators)
 
 
 #Processing of Fulltext response via the google form
-MA.fulltextscreening_responses <- read.csv("./MA.fulltextscreening.responses25032020.csv", strip.white = TRUE)
+MA.fulltextscreening_responses <- read.csv("./MA.fulltextscreening.responses30032020.csv", strip.white = TRUE)
 nrow(MA.fulltextscreening_responses)
 labels(MA.fulltextscreening_responses)
 MA.fulltextscreening_responses <- select(MA.fulltextscreening_responses, -c(X, X.1, X.2, X.3, X.4, X.5, X.6))
