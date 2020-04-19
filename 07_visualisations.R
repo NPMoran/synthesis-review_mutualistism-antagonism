@@ -2,11 +2,17 @@
 
 
 Sys.setenv(LANG = "en")
-library(ggplot2); library(tidyverse)
-#https://ggplot2.tidyverse.org/reference/geom_density.html
+library(ggplot2); library(tidyverse); library(bibliometrix)
+
+TO DO LIST
+#Bibliometrix ----
+#Visualising the Scales of interactions ----
+#Visualising the Types of interations used ----
+#Visualising the relevant traits ----
 
 
 #Time x interaction scale (included fulltexts) ----
+#https://ggplot2.tidyverse.org/reference/geom_density.html
 fulltextdecisions <- read.csv("MA.fulltextscreening.finaldecisionssimplified.csv", strip.white = TRUE)
 labels(fulltextdecisions)
 fulltextincluded <- subset(fulltextdecisions, FinalDecision == "Include")
@@ -103,18 +109,6 @@ tabledata1_exp <- select(tabledata1_exp, -c(row.id,TaskforceAllocation,FulltextT
                                             ReviewerDecision.checked.by,FinalDecision,FinalDecisionReason,FinalDecisionNotes))
 table1 <- tabledata1_exp %>% gt()
 
-
-
-
-#Visualising the Scales of interactions ----
-
-
-
-#Visualising the Types of interations used ----
-
-
-
-#Visualising the relevant traits ----
 
 
 
