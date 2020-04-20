@@ -4,7 +4,7 @@
 Sys.setenv(LANG = "en")
 library(ggplot2); library(tidyverse); library(bibliometrix)
 
-TO DO LIST
+####TO DO LIST
 #Bibliometrix ----
 #Visualising the Scales of interactions ----
 #Visualising the Types of interations used ----
@@ -13,78 +13,109 @@ TO DO LIST
 
 #Time x interaction scale (included fulltexts) ----
 #https://ggplot2.tidyverse.org/reference/geom_density.html
-fulltextdecisions <- read.csv("MA.fulltextscreening.finaldecisionssimplified.csv", strip.white = TRUE)
-labels(fulltextdecisions)
-fulltextincluded <- subset(fulltextdecisions, FinalDecision == "Include")
-nrow(fulltextincluded) #total number of included studies
-
-
-labels(fulltextincluded)
-summary(fulltextincluded$year)
+fulltextinclusions <- read.csv("MA.fulltextscreening.finalinclusions.csv", strip.white = TRUE)
+labels(fulltextinclusions)
+nrow(fulltextinclusions) #total number of included studies
+summary(fulltextinclusions$year)
 
 Fig.time <- NULL
-Fig.time$Scale <- fulltextincluded$Scale
-Fig.time$year <- fulltextincluded$year
+Fig.time$Scale <- fulltextinclusions$Scale_Processed
+Fig.time$year <- fulltextinclusions$year
 Fig.time <- as.data.frame(Fig.time)
-Fig.time$Scale <- factor(Fig.time$Scale,levels(Fig.time$Scale)[c(3,2,1)])
+Fig.time$Scale <- factor(Fig.time$Scale,levels(Fig.time$Scale)[c(3,1,2)])
 
 Fig.time1 <- ggplot(Fig.time, aes(x=year, stat(count)))+
-  geom_density(color="darkblue", fill="lightblue") +
+  geom_density(adjust = 0.8, color="black", fill="seashell2") +
   labs(x = "Year of publication", y ="Number of publications")+
   theme(axis.text.y = element_text(size = 10, colour = "black"),
         axis.text.x = element_text(size = 10, colour = "black"), 
         panel.background = element_rect(fill = "white"),
-        axis.title.y  = element_text(size=14, vjust = 0.1),
-        axis.title.x  = element_text(size=14, vjust = 0.1),
+        axis.title.y  = element_text(size=10, vjust = 2),
+        axis.title.x  = element_text(size=10, vjust = 0.1),
         panel.border = element_rect(colour = "black", fill=NA, size = 1)) +
   scale_x_continuous(limits = c(1985, 2019), expand = c(0, 0), breaks=c(1985,1990,1995,2000,2005,2010,2015,2019)) +
-  scale_y_continuous(limits = c(0,5), expand = c(0, 0))
+  scale_y_continuous(limits = c(0,6), expand = c(0, 0))
+Fig.time1
 
 Fig.time2 <- ggplot(Fig.time, aes(x=year, stat(count), fill=Scale)) +
   geom_density(position = "stack", adjust = 0.8) +
   labs(x = "Year of publication", y ="Number of publications") +
   scale_x_continuous(limits = c(1985, 2019), expand = c(0, 0), breaks=c(1985,1990,1995,2000,2005,2010,2015,2019)) +
-  scale_y_continuous(limits = c(0,5), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0,6), expand = c(0, 0)) +
   theme(axis.text.y = element_text(size = 10, colour = "black"),
         axis.text.x = element_text(size = 10, colour = "black"), 
         panel.background = element_rect(fill = "white"),
-        axis.title.y  = element_text(size=14, vjust = 0.1),
-        axis.title.x  = element_text(size=14, vjust = 0.1),
+        axis.title.y  = element_text(size=10, vjust = 2),
+        axis.title.x  = element_text(size=10, vjust = 0.1),
         panel.border = element_rect(colour = "black", fill=NA, size = 1),
         legend.position = c(0.15,0.7),
         legend.title = element_blank()) +
   scale_fill_manual(values=c("seashell2","white","red"))
 Fig.time2
 
-ggsave("Visualisations/Fig.time1.jpg", width = 16, height = 8, units = "cm", Fig.time1, dpi = 600)
-ggsave("Visualisations/Fig.time2.jpg", width = 16, height = 8, units = "cm", Fig.time2, dpi = 600)
+ggsave("Visualisations/Fig.time1.jpg", width = 12, height = 7, units = "cm", Fig.time1, dpi = 600)
+ggsave("Visualisations/Fig.time2.jpg", width = 12, height = 7, units = "cm", Fig.time2, dpi = 600)
 
 
 #Time x interaction type (included fulltexts) ----
-labels(fulltextincluded)
-summary(fulltextincluded$InteractionType)
+labels(fulltextinclusions)
+summary(fulltextinclusions$InteractionType_Processed)
+
+
+#Duplicating studies that include mutiple interaction types to could them in both,
+CompCoop <- rbind(subset(fulltextinclusions, InteractionType_Processed == "Competition-cooperation"),
+                  subset(fulltextinclusions, InteractionType_Processed == "Consumer-resource/plant-animal; Competition-cooperation"),
+                  subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Consumer-resource/plant-animal; Competition-cooperation"),
+                  subset(fulltextinclusions, InteractionType_Processed == "Male-female; Competition-cooperation"))
+CompCoop$InteractionTypeDuplicated <- "Competition-cooperation" 
+ConsRes <- rbind(subset(fulltextinclusions, InteractionType_Processed == "Consumer-resource/plant-animal"),
+                 subset(fulltextinclusions, InteractionType_Processed == "Consumer-resource/plant-animal; Competition-cooperation"),
+                 subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Consumer-resource/plant-animal"),
+                 subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Consumer-resource/plant-animal; Competition-cooperation"))
+ConsRes$InteractionTypeDuplicated <- "Consumer-resource/plant-animal" 
+HostSym <- rbind(subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont"),
+                subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Consumer-resource/plant-animal"),
+                subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Consumer-resource/plant-animal; Competition-cooperation"),
+                subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Male-female"))
+HostSym$InteractionTypeDuplicated <- "Host-symbiont" 
+MalFem <- rbind(subset(fulltextinclusions, InteractionType_Processed == "Male-female"),
+                subset(fulltextinclusions, InteractionType_Processed == "Male-female; Competition-cooperation"),
+                subset(fulltextinclusions, InteractionType_Processed == "Host-symbiont; Male-female"))
+MalFem$InteractionTypeDuplicated <- "Male-female" 
+NonSpec <- subset(fulltextinclusions, InteractionType_Processed == "Non-specific")
+NonSpec$InteractionTypeDuplicated <- "Non Specific" 
+nrow(NonSpec)
+
+interactionfig <- rbind(CompCoop,
+                        ConsRes,
+                        HostSym,
+                        MalFem,
+                        NonSpec)
 
 Fig.time <- NULL
-Fig.time$Type <- fulltextincluded$InteractionType
-Fig.time$year <- fulltextincluded$year
+Fig.time$Type <- interactionfig$InteractionTypeDuplicated
+Fig.time$year <- interactionfig$year
 Fig.time <- as.data.frame(Fig.time)
+Fig.time$Type <- factor(Fig.time$Type,levels(Fig.time$Type)[c(1,2,3,4)])
+
 
 Fig.time3 <- ggplot(Fig.time, aes(x=year, stat(count), fill=Type)) +
   geom_density(position = "stack", adjust = 0.8) +
   labs(x = "Year of publication", y ="Number of publications") +
   scale_x_continuous(limits = c(1985, 2019), expand = c(0, 0), breaks=c(1985,1990,1995,2000,2005,2010,2015,2019)) +
-  scale_y_continuous(limits = c(0,5), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0,8), expand = c(0, 0)) +
   theme(axis.text.y = element_text(size = 10, colour = "black"),
         axis.text.x = element_text(size = 10, colour = "black"), 
         panel.background = element_rect(fill = "white"),
-        axis.title.y  = element_text(size=14, vjust = 0.1),
-        axis.title.x  = element_text(size=14, vjust = 0.1),
+        axis.title.y  = element_text(size=10, vjust = 2),
+        axis.title.x  = element_text(size=10, vjust = 0.1),
         panel.border = element_rect(colour = "black", fill=NA, size = 1),
-        legend.position = c(0.20,0.7),
+        legend.position = c(0.3,0.7),
         legend.title = element_blank()) +
   scale_fill_manual(values=c("seashell2","lightgrey","white","red","black"))
+Fig.time3
 
-ggsave("Visualisations/Fig.time3.jpg", width = 16, height = 8, units = "cm", Fig.time3, dpi = 600)
+ggsave("Visualisations/Fig.time3.jpg", width = 12, height = 7, units = "cm", Fig.time3, dpi = 600)
 
 
 #Summary Tables ----
