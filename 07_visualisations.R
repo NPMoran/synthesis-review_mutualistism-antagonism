@@ -2,10 +2,16 @@
 
 
 Sys.setenv(LANG = "en")
-library(ggplot2); library(tidyverse); library(bibliometrix)
+library(tidyverse); library(ggplot2)
+
 
 ####TO DO LIST
 #Bibliometrix ----
+install.packages("bibliometrix", dependencies=TRUE)
+library(bibliometrix)
+biblioshiny()
+
+
 #Visualising the Scales of interactions ----
 #Visualising the Types of interations used ----
 #Visualising the relevant traits ----
