@@ -1,6 +1,14 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
 
 
+#2. PRODUCING ABSTRACT SCEENING DATABASES FOR SCREENERS
+
+
+Sys.setenv(LANG = "en")
 library(dplyr); library(operators)
 
 

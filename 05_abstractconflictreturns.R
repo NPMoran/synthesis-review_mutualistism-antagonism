@@ -1,4 +1,11 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+
+
+#5. PROCESSING CONFLICT RESOLUTIONS AND PRODUCING FINAL ABSTRACT DECISION DATABASE
 
 
 library(dplyr); library(operators)
@@ -98,3 +105,8 @@ nrow(abstractsincluded)
 
 write.csv(MA.abstractscreeningfull, "MA.abstractdecision_final.csv")
 write.csv(abstractsincluded, "MA.abstractdecision_included.csv")
+
+
+#Note: Database of final abstract decisions is also available as MA.abstractdecision_final_MASTER.xlsx, https://osf.io/9kfpc/ under 'OSF Storage/Screening Databases'
+
+

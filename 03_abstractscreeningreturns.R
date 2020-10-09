@@ -1,4 +1,11 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+
+
+#3. PROCESSING RESPONSES TO ABSTRACT SCREENING
 
 
 library(dplyr); library(operators)
@@ -96,5 +103,5 @@ conflict.2 <- subset(included.B, decision.x != "include")
 conflicts <- rbind(conflict.1, conflict.2)
 nrow(conflicts) #140 conflicts
 
-write.csv(conflicts, "MA.conflicts.csv")
+write.csv(conflicts, "MA.abstractconflicts.csv")
 write.csv(conflict.identification, "MA.abstractdecision_first.csv")

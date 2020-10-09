@@ -1,11 +1,18 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+
+
+#4. PRODUCING DATABASES FOR RESOLUTION OF CONLFLCIT BY THIRD REVIEWER
 
 
 library(dplyr); library(operators)
 
 
 #Conflict resolution allocations ----
-conflicts <- read.csv("MA.conflicts.csv", strip.white = TRUE)
+conflicts <- read.csv("MA.abstractconflicts.csv", strip.white = TRUE)
 
 #Due to the high amount of conflicts, these were randomly allocated conflicts to a third reviewer to make a final decision
 #For 8 screener; 4x 18 records, 4x 17 records.
@@ -13,8 +20,7 @@ labels(conflicts)
 conflicts$title <- conflicts$title.y
 conflicts$abstract <- conflicts$abstract.y
 conflicts.allocation <- select(conflicts, -c(X, title.x, abstract.x, decision.x, scale.x, topic.x, notes.x, title.y, abstract.y, decision.y, scale.y, topic.y, notes.y)) #cleaning up old variables
-labels(conflicts.reduced)
-summary(conflicts.reduced$screener.id.x); summary(conflicts.reduced$screener.id.y)
+summary(as.factor(conflicts.allocation$screener.id.x)); summary(as.factor(conflicts.allocation$screener.id.y))
 #Screeners involved in most conflicts: PT(48) NM(47) MW(45) JW(42) UE(29) CF(26) KJB(22) CM(21)
 
 set.seed(8688) #set.seed was set as a value that allocated all abstracts to screeners that had not previously screened that abstract

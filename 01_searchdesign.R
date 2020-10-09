@@ -1,6 +1,14 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
 
 
+#1. SYSTEMATIC SEARCH  PROCESSING AND DEDUPLICATION
+
+
+Sys.setenv(LANG = "en")
 #library(devtools)
 #install_github("mjwestgate/revtools")
 #install.packages("revtools")
@@ -10,7 +18,6 @@ library(dplyr); library(operators); library(revtools)
 
 
 #Databases: Web of Science Core Collection (http://www.webofknowledge.com); Scopus (https://www.scopus.com/)
-
 
 #Wos Search 18072019----
 #TS= ("*mutualis*" OR "cooperati*" OR "interdependenc*" OR "symbio*") AND TS=("antagonis*" OR "competi*" OR ("host*" AND "parasit*") OR ("predator*" AND "prey") OR "conflict") AND TS=(("intraspecific" OR "within-species" OR "individual*" OR "agent*" OR "organism*" OR "animal*") NEAR/5 ("varia*" OR "divers*" OR "difference*"))
@@ -68,4 +75,5 @@ write.csv(MA.fullrec,"MA.fullrec.csv", row.names=FALSE) # function is operating 
 #On the morphology of Balaenophilus manatorum (Ortz, Lalana, and Torres) (Copepoda: Harpacticoida) from sea turtles of the Mexican pacific with notes on intraspecific variation	Surez-Morales, E. and Lazo-Wasem, E.A.	Comparative Parasitology 10.1654/4351.1
 
 
-#gives 411 results (number of additional duplicates removed)
+#gives 411 results
+

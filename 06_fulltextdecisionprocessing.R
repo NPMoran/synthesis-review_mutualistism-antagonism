@@ -1,4 +1,12 @@
 ##########_____Mutualism/Antagonism Synthesis Review_____#########
+#
+# Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
+#
+# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+
+
+#6. PROCESSING FULLTEXT INITIAL DECISIONS
+#note: allocation of fulltexts was done manually, (see MA.fulltextscreening.allocations.csv) 
 
 
 Sys.setenv(LANG = "en")
@@ -49,5 +57,9 @@ MA.fulltextscreening_responses$ReviewerDecision.checked.by <- ""
 MA.fulltextscreening_responses$FinalDecision <- ""
 MA.fulltextscreening_responses$FinalDecisionReason <- ""
 write.csv(MA.fulltextscreening_responses, "MA.fulltextscreening.responses.csv")
-subset(MA.fulltextscreening_responses, abstract.id == "MA14"
-       
+
+
+#Note: final inclusion decision made manually, by MW and NM collectively.
+#(see MA.fulltextscreening.finaldecisions_MASTER.xlsx, https://osf.io/9kfpc/ under 'OSF Storage/Screening Databases')
+
+
