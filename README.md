@@ -4,7 +4,9 @@
 
 Nicholas P. Moran, Barbara Caspers, Nayden Chakarov, Ulrich R. Ernst, Claudia Fricke, Joachim Kurtz, Navina D. Lilie, Lai Ka Lo, Caroline Müller, Elina Takola, Pete C. Trimmer, Koen J. van Benthem, Reshma R, Jamie Winternitz, Meike J. Wittmann, Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review (Pre-Print)
 
+
 Code contents:
+
 '01_searchdesign.R' (SYSTEMATIC SEARCH  PROCESSING AND DEDUPLICATION)
 
 '02_abstractscreeningdat.R' (PRODUCING ABSTRACT SCEENING DATABASES FOR SCREENERS)
@@ -20,7 +22,10 @@ Code contents:
 '07_visualisations.R' (PRODUCING VISUALISATIONS AND TABLES FOR SUPPLEMENTARY MATERIALS)
 
 
+
+
 Key databases:
+
 'MA.fullrec.final.csv' (PRE_SCREENING; DEDUPLICATED DATABASE OF ALL RECORDS)
 
 'MA.abstractdecision_final.csv' (COMPLETE ABSTRACT SCREENING DATABASE)
