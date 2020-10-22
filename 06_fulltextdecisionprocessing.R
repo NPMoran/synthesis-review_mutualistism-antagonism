@@ -6,7 +6,7 @@
 
 
 #6. PROCESSING FULLTEXT INITIAL DECISIONS
-#note: allocation of fulltexts was done manually, (see MA.fulltextscreening.allocations.csv) 
+#note: allocation of fulltexts was done manually, to allocate to reviewers based on their expertise (see MA.fulltextscreening.allocations.csv) 
 
 
 Sys.setenv(LANG = "en")

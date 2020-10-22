@@ -133,11 +133,12 @@ fulltextinclusions.expobs <- subset(fulltextinclusions, StudyType_Processed != "
 fulltextinclusions.expobs <- subset(fulltextinclusions.expobs, StudyType_Processed != "Review")
 fulltextinclusions.expobs <- subset(fulltextinclusions.expobs, StudyType_Processed != "Review, Modelling/theory")
 nrow(fulltextinclusions.expobs)
-summary(as.factor(fulltextinclusions_stacked.expobs$Scale_Processed))
+summary(as.factor(fulltextinclusions.expobs$Scale_Processed))
 ExpObs_scale <- NULL
-ExpObs_scale$StudyType <- "Exp/Obs"
+ExpObs_scale$StudyType <- "Exp/obs"
 ExpObs_scale$Scale <- c('Interspecific', 'Inter- and Intraspecific','Intraspecific')
-ExpObs_scale$Npapers <- c(17,4,35) 
+ExpObs_scale$Npapers <- c(16,2,29)
+ExpObs_scale$Percentpapers <- (ExpObs_scale$Npapers)/47*100
 ExpObs_scale <- as.data.frame(ExpObs_scale)
 
 fulltextinclusions.review <- subset(fulltextinclusions, StudyType_Processed != "Experimental")
@@ -153,28 +154,30 @@ Rev_scale <- NULL
 Rev_scale$StudyType <- "Review" 
 Rev_scale$Scale <- c('Interspecific', 'Inter- and Intraspecific','Intraspecific')
 Rev_scale$Npapers <- c(5,3,11) 
+Rev_scale$Percentpapers <- (Rev_scale$Npapers)/19*100
 Rev_scale <- as.data.frame(Rev_scale)
 
 fulltextinclusions.model <- subset(fulltextinclusions, StudyType_Processed != "Experimental")
-fulltextinclusions.model <- subset(fulltextinclusions_stacked.model, StudyType_Processed != "Observational; Experimental")
+fulltextinclusions.model <- subset(fulltextinclusions.model, StudyType_Processed != "Observational; Experimental")
 fulltextinclusions.model <- subset(fulltextinclusions.model, StudyType_Processed != "Review")
 fulltextinclusions.model <- subset(fulltextinclusions.model, StudyType_Processed != "Observational")
 nrow(fulltextinclusions.model)
 summary(as.factor(fulltextinclusions.model$Scale_Processed))
 Mod_scale <- NULL
-Mod_scale$StudyType <- "Modelling/Theory" 
+Mod_scale$StudyType <- "Modelling/theory" 
 Mod_scale$Scale<- c('Interspecific', 'Inter- and Intraspecific','Intraspecific')
-Mod_scale$Npapers <- c(4,5,30) 
+Mod_scale$Npapers <- c(5,3,26) 
+Mod_scale$Percentpapers <- (Mod_scale$Npapers)/34*100
 Mod_scale <- as.data.frame(Mod_scale)
 
 Fig_scale <- rbind(ExpObs_scale, Rev_scale, Mod_scale)
 Fig_scale$Scale <- ordered(Fig_scale$Scale, levels =c('Interspecific', 'Inter- and Intraspecific','Intraspecific'))
-Fig_scale$StudyType <- ordered(Fig_scale$StudyType, levels = c("Exp/Obs","Review","Modelling/Theory"))
+Fig_scale$StudyType <- ordered(Fig_scale$StudyType, levels = c("Exp/obs","Review","Modelling/theory"))
 
-Fig.comp1 <- ggplot(Fig_scale, aes(fill=Scale, y=Npapers, x=StudyType)) + 
-  geom_bar(position="fill", stat="identity",  colour="black") +
+Fig.comp1 <- ggplot(Fig_scale, aes(fill=Scale, y=Percentpapers, x=StudyType)) + 
+  geom_bar(position="Stack", stat="identity",  colour="black") +
   scale_fill_manual(values=c("seashell2","white","red")) +
-  labs(x = "Study Type", y ="Proportion of included publications") +
+  labs(x = "Study type", y ="Percentage of included publications") +
   theme(axis.text.y = element_text(size = 10, colour = "black"),
         axis.text.x = element_text(size = 10, colour = "black"), 
         panel.background = element_rect(fill = "white"),
@@ -197,7 +200,7 @@ fulltextinclusions_stacked.expobs <- subset(fulltextinclusions_stacked.expobs, S
 nrow(fulltextinclusions_stacked.expobs)
 summary(as.factor(fulltextinclusions_stacked.expobs$InteractionTypeDuplicated))
 ExpObs_topics <- NULL
-ExpObs_topics$StudyType <- "Exp/Obs" 
+ExpObs_topics$StudyType <- "Exp/obs" 
 ExpObs_topics$Topic <- c('Consumer-resource/plant-animal','Host-symbiont','Competition-cooperation','Male-female', 'Parent-offspring')
 ExpObs_topics$Npapers <- c(4,11,28,11,2) 
 ExpObs_topics$Percentpapers <- ((ExpObs_topics$Npapers)/47)*100
@@ -226,7 +229,7 @@ fulltextinclusions_stacked.model <- subset(fulltextinclusions_stacked.model, Stu
 nrow(fulltextinclusions_stacked.model)
 summary(as.factor(fulltextinclusions_stacked.model$InteractionTypeDuplicated))
 Mod_topics <- NULL
-Mod_topics$StudyType <- "Modelling/Theory" 
+Mod_topics$StudyType <- "Modelling/theory" 
 Mod_topics$Topic <- c('Consumer-resource/plant-animal','Host-symbiont','Competition-cooperation','Male-female', 'Parent-offspring')
 Mod_topics$Npapers <- c(3,2,28,5,1) 
 Mod_topics$Percentpapers <- ((Mod_topics$Npapers)/34)*100
@@ -234,13 +237,13 @@ Mod_topics <- as.data.frame(Mod_topics)
 
 Fig_topics <- rbind(ExpObs_topics, Rev_topics, Mod_topics)
 Fig_topics$Topic <- ordered(Fig_topics$Topic, levels = c('Consumer-resource/plant-animal','Host-symbiont','Competition-cooperation','Male-female', 'Parent-offspring'))
-Fig_topics$StudyType <- ordered(Fig_topics$StudyType, levels = c("Exp/Obs","Review","Modelling/Theory"))
+Fig_topics$StudyType <- ordered(Fig_topics$StudyType, levels = c("Exp/obs","Review","Modelling/theory"))
 
 
 Fig.comp2 <- ggplot(Fig_topics, aes(fill=Topic, y=Percentpapers, x=StudyType)) + 
-  geom_bar(position="fill", stat="identity",  colour="black") +
+  geom_bar(position="stack", stat="identity",  colour="black") +
   scale_fill_manual(values=c("seashell2","lightgrey","white","red","black")) +
-  labs(x = "Study Type", y ="Proportion of included publications") +
+  labs(x = "Study type", y ="Percentage of included publications") +
   theme(axis.text.y = element_text(size = 10, colour = "black"),
         axis.text.x = element_text(size = 10, colour = "black"), 
         panel.background = element_rect(fill = "white"),
