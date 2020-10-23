@@ -11,8 +11,8 @@
 
 Sys.setenv(LANG = "en")
 library(tidyverse); library(ggplot2)
-install.packages("bibliometrix", dependencies=TRUE)
-library(bibliometrix)
+library(bibliometrix); library(VennDiagram)
+
 
 
 #(Fig S4a,S4b) Temporal trends in the scale of included studies ----
@@ -125,6 +125,7 @@ Fig.time3 <- ggplot(Fig.time, aes(x=year, stat(count), fill=Type)) +
 Fig.time3
 
 ggsave("Visualisations/Fig.time3.jpg", width = 18, height = 7, units = "cm", Fig.time3, dpi = 600)
+
 
 
 ##(Fig S3a) Scale composition of studies by study type ----
@@ -256,91 +257,54 @@ Fig.comp2
 ggsave("Visualisations/Fig.comp2.jpg", width = 16, height = 9, units = "cm", Fig.comp2, dpi = 600)
 
 
-##Bibliometric analysis ----
-#library(bibliometrix); library(VennDiagram)
-#
-#
+
+##(Fig S5) Bibliometric analysis ----
 ##Importing datasets
 ##WOS: 79 records from included articles (79/95, 83%)
-#file <- "wos.included.csv"
-#WOS <- convert2df(file, dbsource = "wos", format = "csv")
-#head(WOS["TC"])
-#
-##WOS: 73 records from included articles (73/95, 77%%)
-#file <- "scopus.included.bib"
-#SCO <- convert2df(file, dbsource = "scopus", format = "bibtex")
-#head(SCO["TC"])
-#
-##2 articles missing from both databases:
+##WOS: 73 records from included articles (73/95, 83%)
+
+##Note:  articles missing from both databases
 ##- Mutualisms as consumer-resource interactions	Holland, J. N., Ness, J. H., Boyle, A. L., & Bronstein, J. L. (book chapter)
 ##- Social rank modulates how environmental quality influences cooperation and conflict within animal societies.	Liu, M., Chen, B. F., Rubenstein, D. R., & Shen, S. F. (recent paper, not indexed at time of analysis)
-#
-#
-###Create Venn Diagram to check overlap between the two databases
-#install.packages("venn")
-#library(VennDiagram)
-##Size of each set
-#nrow(CompCoop) #63 Competition-cooperation
-#nrow(ConsRes) #11 Consumer-resource/plant-animal
-#nrow(HostSym) #18 Host-symbiont
-#nrow(MalFem ) #19 Male-female
-#nrow(ParOff) #5 Parent-offspring
-##Size off overlaps
-#summary(as.factor(fulltextinclusions$InteractionType_Processed))
-##5 Host-symbiont; Consumer-resource/plant-animal
-##1 Host-symbiont; Male-female; Parent-offspring
-##8 Male-female; Competition-cooperation
-##1 Male-female; Parent-offspring
-##2 Male-female; Parent-offspring; Competition-cooperation
-##1 Parent-offspring; Competition-cooperation
-#
-#
-#### Isolate titles to use for comparison
-##Scopus <- SCO$TI
-##WoS <- WOS$TI
-##name <- "Fig_venn"
-#### Create the diagram according to similarity of titles
-##v <- venn.diagram(x = (list("Scopus" = Scopus, "WoS" = WoS)),
-##                  fill = c("seashell2","lightgrey"),
-##                  alpha = 0.4, 
-##                  filename=name, height = 2400, width = 2800, resolution =
-##                  600, imagetype = "png",
-##                  fontfamily = "sans",
-##                  sub.fontfamily = "sans")
-### The Venn diagram is automatically saved in the working directory
-#
-#MER <- mergeDbSources (SCO, WOS, remove.duplicated = TRUE)
-##57 duplicates removed, 2 duplicates not removed
-#
-#
-## An example of a classical keyword co-occurrences network
-#NetMatrix <- biblioNetwork(MER, analysis = "co-occurrences", network = "keywords", sep = ";")
-#netstat <- networkStat(NetMatrix)
-#
-## Co-citation network
-#NetMatrix <- biblioNetwork(MER, analysis = "co-citation", network = "references", sep = ",")
-#net=networkPlot(NetMatrix, n = 20, Title = "Co-Citation Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = 5)
-#
-#
-## Create keyword co-occurrences network
-#NetMatrix2 <- biblioNetwork(MER, analysis = "co-occurrences", network = "keywords", sep = ";")
-#net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = NULL, type = "fruchterman", size=T,edgesize = 5,labelsize=0.7)
-#
-## Conceptual Structure using keywords (method="CA")
-#CS <- conceptualStructure(WOS,field="ID", method="CA", minDegree=4, clust=5, stemming=FALSE, labelsize=10, documents=10)
-#
-## Create a historical citation network
-#options(width=130)
-#histResults <- histNetwork(MER, min.citations = 1, sep = ";")
-### 
-### WOS DB:
-#
-## Plot a historical co-citation network
-#net <- histPlot(histResults, n=15, size = 10, labelsize=5)
-#
-#
-#
-#
+
+A <- "Bibliometrics/wos.included.txt"
+W <- convert2df(file = A, dbsource = "wos", format = "plaintext")
+
+B <- "Bibliometrics/scopus.included.csv"
+S <- convert2df(file = B, dbsource = "scopus", format = "csv")
+
+summary(W)
+summary(S) #Parsing appears successful
+
+
+# Merge datasets and remove duplicates
+M <- mergeDbSources(W, S, remove.duplicated=TRUE)
+summary(M) #97 references, 4 duplicated references remain
+write.csv(M, "Bibliometrics/M.csv")
+
+#Externally repaired errors in title of 4 papers preventing duplicate identification.
+A <- "Bibliometrics/wos.included_repaired.txt"
+W <- convert2df(file = A, dbsource = "wos", format = "plaintext")
+
+B <- "Bibliometrics/scopus.included_repaired.csv"
+S <- convert2df(file = B, dbsource = "scopus", format = "csv")
+
+summary(W)
+summary(S) #Parsing appears successful
+
+M <- mergeDbSources(W, S, remove.duplicated=TRUE)
+summary(M) #93 records, deduplication successful
+
+write.csv(M, "Bibliometrics/M.csv")
+
+
+#Creating Conceptual map based on included study keywords
+#using 3 clusters
+#Based on occurences greater to or equal to 4.
+CS <- conceptualStructure(M, method = "MDS", field = "ID", 
+                          minDegree = 4, clust = 3, 
+                          labelsize = 10)
+
 
 
 #(Table S1, S2, S3) Summary Tables  ----

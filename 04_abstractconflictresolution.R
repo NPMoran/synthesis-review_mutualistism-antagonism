@@ -5,7 +5,7 @@
 # Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
 
 
-#4. PRODUCING DATABASES FOR RESOLUTION OF CONLFLCIT BY THIRD REVIEWER
+#4. PRODUCING DATABASES FOR RESOLUTION OF CONFLICT BY THIRD REVIEWER
 
 
 library(dplyr); library(operators)
