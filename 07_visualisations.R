@@ -3,7 +3,7 @@
 # Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
 #         Elina Takola for Bibliomtric analysis (Friedrich Schiller University Jena)
 #
-# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+# Title: Shifts between cooperation and antagonism driven by individual variation: A systematic synthesis review 
 
 
 #7. PRODUCING VISUALISATIONS AND TABLES FOR SUPPLEMENTARY MATERIALS

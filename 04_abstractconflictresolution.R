@@ -2,7 +2,7 @@
 #
 # Author: Nicholas Moran (Centre for Ocean Life- DTU Aqua, Technical University of Denmark)
 #
-# Title: Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review 
+# Title: Shifts between cooperation and antagonism driven by individual variation: A systematic synthesis review 
 
 
 #4. PRODUCING DATABASES FOR RESOLUTION OF CONFLICT BY THIRD REVIEWER
