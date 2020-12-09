@@ -2,7 +2,7 @@
 
 #Working code and databases for the following study:
 
-Nicholas P. Moran, Barbara Caspers, Nayden Chakarov, Ulrich R. Ernst, Claudia Fricke, Joachim Kurtz, Navina D. Lilie, Lai Ka Lo, Caroline Müller, Elina Takola, Pete C. Trimmer, Koen J. van Benthem, Reshma R, Jamie Winternitz, Meike J. Wittmann, Movement between cooperation and antagonism driven by individual variation: A systematic synthesis review (Pre-Print)
+Nicholas P. Moran, Barbara Caspers, Nayden Chakarov, Ulrich R. Ernst, Claudia Fricke, Joachim Kurtz, Navina D. Lilie, Lai Ka Lo, Caroline Müller, Elina Takola, Pete C. Trimmer, Koen J. van Benthem, Reshma R, Jamie Winternitz, Meike J. Wittmann, Shifts between cooperation and antagonism driven by individual variation: A systematic synthesis review (Pre-Print)
 
 
 Code contents:
