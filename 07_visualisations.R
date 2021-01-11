@@ -154,8 +154,8 @@ summary(as.factor(fulltextinclusions.review$Scale_Processed))
 Rev_scale <- NULL
 Rev_scale$StudyType <- "Review" 
 Rev_scale$Scale <- c('Interspecific', 'Inter- and Intraspecific','Intraspecific')
-Rev_scale$Npapers <- c(5,3,11) 
-Rev_scale$Percentpapers <- (Rev_scale$Npapers)/19*100
+Rev_scale$Npapers <- c(6,3,11) 
+Rev_scale$Percentpapers <- (Rev_scale$Npapers)/20*100
 Rev_scale <- as.data.frame(Rev_scale)
 
 fulltextinclusions.model <- subset(fulltextinclusions, StudyType_Processed != "Experimental")
@@ -219,8 +219,8 @@ summary(as.factor(fulltextinclusions_stacked.review$InteractionTypeDuplicated))
 Rev_topics <- NULL
 Rev_topics$StudyType <- "Review" 
 Rev_topics$Topic <- c('Consumer-resource/plant-animal','Host-symbiont','Competition-cooperation','Male-female', 'Parent-offspring')
-Rev_topics$Npapers <- c(4,5,11,6,3) 
-Rev_topics$Percentpapers <- ((Rev_topics$Npapers)/19)*100
+Rev_topics$Npapers <- c(5,6,11,6,3) 
+Rev_topics$Percentpapers <- ((Rev_topics$Npapers)/20)*100
 Rev_topics <- as.data.frame(Rev_topics)
 
 fulltextinclusions_stacked.model <- subset(fulltextinclusions_stacked, StudyType_Processed != "Experimental")
@@ -260,10 +260,10 @@ ggsave("Visualisations/Fig.comp2.jpg", width = 16, height = 9, units = "cm", Fig
 
 ##(Fig S5) Bibliometric analysis ----
 ##Importing datasets
-##WOS: 79 records from included articles (79/95, 83%)
-##WOS: 73 records from included articles (73/95, 83%)
+##WOS: 80 records from included articles (80/96, 83%)
+##Scopus: 74 records from included articles (74/96, 77%)
 
-##Note:  articles missing from both databases
+##Note: 2 articles missing from both databases, so should be 94 in merged collection
 ##- Mutualisms as consumer-resource interactions	Holland, J. N., Ness, J. H., Boyle, A. L., & Bronstein, J. L. (book chapter)
 ##- Social rank modulates how environmental quality influences cooperation and conflict within animal societies.	Liu, M., Chen, B. F., Rubenstein, D. R., & Shen, S. F. (recent paper, not indexed at time of analysis)
 
@@ -276,13 +276,20 @@ S <- convert2df(file = B, dbsource = "scopus", format = "csv")
 summary(W)
 summary(S) #Parsing appears successful
 
-
 # Merge datasets and remove duplicates
 M <- mergeDbSources(W, S, remove.duplicated=TRUE)
-summary(M) #97 references, 4 duplicated references remain
+summary(M) #98 references, 4 duplicated references remain
 write.csv(M, "Bibliometrics/M.csv")
 
 #Externally repaired errors in title of 4 papers preventing duplicate identification.
+#Scopus title parsing errors fixed:
+#INTRASPECIFIC VARIATION IN INDIRECT PLANTÂSOIL FEEDBACKS INFLUENCES A WETLAND PLANT INVASION
+#RECONCILING WITH VALUABLE PARTNERS BY LONGÂTAILED MACAQUES
+
+#WOS title parsing errors fixed:
+#SIZE MATTERS WHEN 3SPINED STICKLEBACKS GO TO SCHOOL
+#COOPERATION AND CONFLICT IN THE EVOLUTION OF INDIVIDUALITY 1 MULTILEVEL SELECTION OF THE ORGANISM
+
 A <- "Bibliometrics/wos.included_repaired.txt"
 W <- convert2df(file = A, dbsource = "wos", format = "plaintext")
 
@@ -293,7 +300,7 @@ summary(W)
 summary(S) #Parsing appears successful
 
 M <- mergeDbSources(W, S, remove.duplicated=TRUE)
-summary(M) #93 records, deduplication successful
+summary(M) #94 records, deduplication successful
 
 write.csv(M, "Bibliometrics/M.csv")
 
@@ -317,7 +324,7 @@ table1$Ref_Processed <- paste(table1$short_citation, table1$abstract.id, sep = "
 table1$TypeScale_Processed <- paste(table1$InteractionType_Processed, table1$Scale_Processed, sep = " (")
 table1$TypeScale_Processed <- paste(table1$TypeScale_Processed, ")", sep = "")
 
-table1 <- select(table1, -c(used.in.main.text., sort.id, WOS, SCO, abstract.id, row.id, FulltextReviewer.initial, title, author, short_citation, StudyType, StudyType_Processed, 
+table1 <- select(table1, -c(used.in.main.text., sort.id, WOS, SCO, abstract.id, FulltextReviewer.initial, title, author, short_citation, StudyType, StudyType_Processed, 
 TaskforceAllocation, Scale, What.is.the.scale.of.the.shift, Scale_Processed, FulltextTopicIdentifier, InteractionType, 
 InteractionType_Processed, journal, volume, number, pages, year, doi, Timestamp, FulltextReviewer, SpeciesInteracting, 
 TraitDescription, SpeciesTraitVariation, GeneticNotes, 
@@ -337,7 +344,7 @@ table2$Ref_Processed <- paste(table2$short_citation, table2$abstract.id, sep = "
 table2$TypeScale_Processed <- paste(table2$InteractionType_Processed, table2$Scale_Processed, sep = " (")
 table2$TypeScale_Processed <- paste(table2$TypeScale_Processed, ")", sep = "")
 
-table2 <- select(table2, -c(used.in.main.text., sort.id, WOS, SCO, abstract.id, row.id, FulltextReviewer.initial, Species_Processed, author, short_citation, StudyType, StudyType_Processed, 
+table2 <- select(table2, -c(used.in.main.text., sort.id, WOS, SCO, abstract.id, FulltextReviewer.initial, Species_Processed, author, short_citation, StudyType, StudyType_Processed, 
                             TaskforceAllocation, Scale, What.is.the.scale.of.the.shift, Scale_Processed, FulltextTopicIdentifier, InteractionType, 
                             InteractionType_Processed, journal, volume, number, pages, year, doi, Timestamp, FulltextReviewer, SpeciesInteracting, 
                             Trait_Processed, TraitDescription, SpeciesTraitVariation, GeneticNotes, 
