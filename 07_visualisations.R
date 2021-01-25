@@ -362,7 +362,7 @@ table3$Ref_Processed <- paste(table3$short_citation, table3$abstract.id, sep = "
 table3$TypeScale_Processed <- paste(table3$InteractionType_Processed, table3$Scale_Processed, sep = " (")
 table3$TypeScale_Processed <- paste(table3$TypeScale_Processed, ")", sep = "")
 
-table3 <- select(table3, -c(sort.id,	used.in.main.text.,	WOS,	SCO, Trait_Processed, year, abstract.id, FulltextReviewer.initial, Species_Processed, author, short_citation, StudyType, StudyType_Processed, 
+table3 <- select(table3, -c(sort.id,	WOS,	SCO, Trait_Processed, year, abstract.id, FulltextReviewer.initial, Species_Processed, author, short_citation, StudyType, StudyType_Processed, 
                             TaskforceAllocation, Scale, What.is.the.scale.of.the.shift, Scale_Processed, FulltextTopicIdentifier, InteractionType, 
                             InteractionType_Processed, journal, volume, number, pages, doi, Timestamp, FulltextReviewer, SpeciesInteracting, 
                             TraitDescription, SpeciesTraitVariation, GeneticNotes,
